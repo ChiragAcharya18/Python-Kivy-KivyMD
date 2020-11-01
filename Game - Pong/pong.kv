@@ -1,0 +1,49 @@
+<PongBall>:
+    size: 50,50     #so that the center of the ball is in the center not the right side of the ball
+    canvas: 
+        Ellipse:
+            pos: self.pos
+            #color: 1,0.3,0.6,1
+            size: self.size     #takes the size as that of the above size
+
+<PongPaddle>:
+    size: 25,200     #so that the center of the ball is in the center not the right side of the ball
+    canvas: 
+        Rectangle:
+            pos: self.pos
+            size: self.size     #takes the size as that of the above size
+
+<PongGame>:
+    ball: pong_ball         #basically links the ball variable of the .py file with this where pong_ball is the id
+    player1: player_left
+    player2: player_right
+    canvas: 
+        Rectangle: 
+            pos:  self.center_x-5,0 #subtract by 2 of size if needs to be in center
+            size: 10,self.height
+
+    Label:
+        font_size: 70
+        center_x: root.width/4      #root.width gives the width of the window 
+        top: root.top - 40         #50p down from top
+        text: str(root.player2.score)
+
+    Label:
+        font_size: 70
+        center_x: root.width * 3/4      #root.width gives the width of the window 
+        top: root.top - 40         #50p down from top
+        text: str(root.player1.score)
+
+    PongBall: 
+        id: pong_ball
+        center: self.parent.center      #takes the center value of the parent which is Pong PongGame
+
+    PongPaddle:
+        id: player_left
+        x: root.x+2               #to keep the paddle at left center(wrt y) initially
+        center_y: root.center_y
+
+    PongPaddle:
+        id: player_right
+        x: root.width - self.width-2      #to keep the paddle at right center(wrt y) initially
+        center_y: root.center_y
